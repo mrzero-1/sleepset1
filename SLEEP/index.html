@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Set Calculator 😴</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="stars">
+        <!-- Stars will be added via JavaScript -->
+    </div>
+    <div class="clouds">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+    </div>
+    <div class="sleep-elements"></div>
+
+    <div class="container">
+        <header>
+            <h1>Sleep Set Calculator 😴</h1>
+            <p>Plan your sleep better for optimal rest ✨</p>
+        </header>
+
+        <main>
+            <!-- Main Calculator View -->
+            <div id="calculator-view" class="calculator-container">
+                <h1 class="title">I will wake up at... ⏰</h1>
+                <div class="time-selector">
+                    <input type="hidden" id="wake-time" value="07:00">
+                    <div class="time-display">
+                        <span class="hours">07</span>
+                        <span class="separator">:</span>
+                        <span class="minutes">00</span>
+                        <span class="period">AM</span>
+                    </div>
+                    <div class="time-picker">
+                        <div class="picker-section hours-picker">
+                            <button class="picker-arrow up">▲</button>
+                            <div class="picker-values"></div>
+                            <button class="picker-arrow down">▼</button>
+                        </div>
+                        <div class="picker-section minutes-picker">
+                            <button class="picker-arrow up">▲</button>
+                            <div class="picker-values"></div>
+                            <button class="picker-arrow down">▼</button>
+                        </div>
+                        <div class="picker-section period-picker">
+                            <button class="period-btn selected">AM</button>
+                            <button class="period-btn">PM</button>
+                        </div>
+                    </div>
+                    <button class="calculate-btn" onclick="showResults('wake')">Calculate 🌟</button>
+                </div>
+
+                <h1 class="title">I will go to bed at... 🌙</h1>
+                <div class="time-selector">
+                    <input type="hidden" id="bed-time" value="22:00">
+                    <div class="time-display">
+                        <span class="hours">10</span>
+                        <span class="separator">:</span>
+                        <span class="minutes">00</span>
+                        <span class="period">PM</span>
+                    </div>
+                    <div class="time-picker">
+                        <div class="picker-section hours-picker">
+                            <button class="picker-arrow up">▲</button>
+                            <div class="picker-values"></div>
+                            <button class="picker-arrow down">▼</button>
+                        </div>
+                        <div class="picker-section minutes-picker">
+                            <button class="picker-arrow up">▲</button>
+                            <div class="picker-values"></div>
+                            <button class="picker-arrow down">▼</button>
+                        </div>
+                        <div class="picker-section period-picker">
+                            <button class="period-btn">AM</button>
+                            <button class="period-btn selected">PM</button>
+                        </div>
+                    </div>
+                    <button class="calculate-btn" onclick="showResults('bed')">Calculate 🌟</button>
+                </div>
+
+                <button class="sleep-now-btn" onclick="showResults('now')">Sleep Now 😴</button>
+            </div>
+
+            <!-- Results View -->
+            <div id="results-view" class="results-container" style="display: none;">
+                <h1 class="title">Recommended Sleep Times 💫</h1>
+                <div class="results-content">
+                    <div id="results-text"></div>
+                    <p class="results-explanation">These times ensure you wake up between sleep cycles, feeling more refreshed! 🌿</p>
+                </div>
+                <button class="back-btn" onclick="showCalculator()">← Back to Calculator</button>
+            </div>
+
+            <!-- Understanding Sleep Cycles Section -->
+            <section class="info-section" id="about-sleep">
+                <h2 class="section-title">Understanding Sleep Cycles 📊</h2>
+                <button id="cycle-info-1" class="cycle-button">Show Next Info Set 🔄</button>
+                
+                <div class="info-grid" id="info-grid-container-1">
+                    <!-- Set 1: Basic Cycle Structure -->
+                    <div class="info-card-set active-set" data-set="1">
+                        <div class="info-card">
+                            <h3>Sleep Cycle Basics 🌙</h3>
+                            <ul>
+                                <li><strong>Duration:</strong> 90-110 minutes per cycle</li>
+                                <li><strong>Frequency:</strong> 4-6 cycles per night</li>
+                                <li><strong>Total Sleep:</strong> 7-9 hours optimal</li>
+                                <li><strong>Cycle Pattern:</strong> Light → Deep → REM</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Stage Transitions 🔄</h3>
+                            <ul>
+                                <li><strong>Wake to Sleep:</strong> 10-20 minutes</li>
+                                <li><strong>Light to Deep:</strong> 20-30 minutes</li>
+                                <li><strong>Deep to REM:</strong> 70-90 minutes</li>
+                                <li><strong>Cycle Reset:</strong> Brief awakening</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Cycle Distribution 📈</h3>
+                            <ul>
+                                <li><strong>First Third:</strong> More deep sleep</li>
+                                <li><strong>Middle Third:</strong> Balanced stages</li>
+                                <li><strong>Final Third:</strong> More REM sleep</li>
+                                <li><strong>Morning:</strong> Lighter sleep</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 2: Stage Details -->
+                    <div class="info-card-set" data-set="2">
+                        <div class="info-card">
+                            <h3>Stage 1: Light Sleep 🌅</h3>
+                            <ul>
+                                <li><strong>Duration:</strong> 5-10 minutes</li>
+                                <li><strong>Brain Waves:</strong> Alpha to theta</li>
+                                <li><strong>Characteristics:</strong> Easy to wake</li>
+                                <li><strong>Sensations:</strong> Falling feeling</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Stage 2: Light Sleep 💫</h3>
+                            <ul>
+                                <li><strong>Duration:</strong> 20-30 minutes</li>
+                                <li><strong>Brain Waves:</strong> Sleep spindles</li>
+                                <li><strong>Temperature:</strong> Drops 1-2°F</li>
+                                <li><strong>Heart Rate:</strong> Slows down</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Stage 3: Deep Sleep 🌊</h3>
+                            <ul>
+                                <li><strong>Duration:</strong> 35-45 minutes</li>
+                                <li><strong>Brain Waves:</strong> Delta waves</li>
+                                <li><strong>Recovery:</strong> Physical repair</li>
+                                <li><strong>Awakening:</strong> Difficult</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 3: REM Sleep -->
+                    <div class="info-card-set" data-set="3">
+                        <div class="info-card">
+                            <h3>REM Characteristics 👁️</h3>
+                            <ul>
+                                <li><strong>Eye Movement:</strong> Rapid darting</li>
+                                <li><strong>Brain Activity:</strong> Near waking levels</li>
+                                <li><strong>Muscle Tone:</strong> Paralyzed</li>
+                                <li><strong>Dreams:</strong> Most vivid</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>REM Timing ⏰</h3>
+                            <ul>
+                                <li><strong>First REM:</strong> 90 minutes in</li>
+                                <li><strong>Duration:</strong> 10-60 minutes</li>
+                                <li><strong>Frequency:</strong> Every 90 minutes</li>
+                                <li><strong>Morning REM:</strong> Longest period</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>REM Functions 🧠</h3>
+                            <ul>
+                                <li><strong>Memory:</strong> Emotional processing</li>
+                                <li><strong>Learning:</strong> Skill consolidation</li>
+                                <li><strong>Creativity:</strong> Problem solving</li>
+                                <li><strong>Brain:</strong> Development support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 4: Brain Activity -->
+                    <div class="info-card-set" data-set="4">
+                        <div class="info-card">
+                            <h3>Brain Waves 🌊</h3>
+                            <ul>
+                                <li><strong>Beta:</strong> Awake (13-30 Hz)</li>
+                                <li><strong>Alpha:</strong> Relaxed (8-12 Hz)</li>
+                                <li><strong>Theta:</strong> Light sleep (4-7 Hz)</li>
+                                <li><strong>Delta:</strong> Deep sleep (0.5-4 Hz)</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Neural Activity ⚡</h3>
+                            <ul>
+                                <li><strong>Hippocampus:</strong> Memory transfer</li>
+                                <li><strong>Amygdala:</strong> Emotion processing</li>
+                                <li><strong>Prefrontal:</strong> Decision consolidation</li>
+                                <li><strong>Brain Stem:</strong> Sleep regulation</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Sleep Spindles 💫</h3>
+                            <ul>
+                                <li><strong>Frequency:</strong> 12-14 Hz bursts</li>
+                                <li><strong>Duration:</strong> 0.5-2 seconds</li>
+                                <li><strong>Function:</strong> Memory formation</li>
+                                <li><strong>Location:</strong> Thalamic regions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 5: Age & Cycles -->
+                    <div class="info-card-set" data-set="5">
+                        <div class="info-card">
+                            <h3>Infant Cycles 👶</h3>
+                            <ul>
+                                <li><strong>Duration:</strong> 50-60 minutes</li>
+                                <li><strong>REM:</strong> 50% of sleep</li>
+                                <li><strong>Daily Sleep:</strong> 14-17 hours</li>
+                                <li><strong>Cycle Count:</strong> 8-10 cycles</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Teen Cycles 🎮</h3>
+                            <ul>
+                                <li><strong>Duration:</strong> 90-100 minutes</li>
+                                <li><strong>Deep Sleep:</strong> 20% of sleep</li>
+                                <li><strong>Timing Shift:</strong> 2-3 hours later</li>
+                                <li><strong>Need:</strong> 8-10 hours</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Adult Changes 👴</h3>
+                            <ul>
+                                <li><strong>Deep Sleep:</strong> Decreases with age</li>
+                                <li><strong>REM:</strong> Remains stable</li>
+                                <li><strong>Light Sleep:</strong> Increases</li>
+                                <li><strong>Wake Time:</strong> More frequent</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 6: Cycle Disruptions -->
+                    <div class="info-card-set" data-set="6">
+                        <div class="info-card">
+                            <h3>External Factors 🌍</h3>
+                            <ul>
+                                <li><strong>Light:</strong> Blocks melatonin</li>
+                                <li><strong>Noise:</strong> Fragments cycles</li>
+                                <li><strong>Temperature:</strong> Affects depth</li>
+                                <li><strong>Altitude:</strong> Reduces REM</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Internal Factors 🔄</h3>
+                            <ul>
+                                <li><strong>Stress:</strong> Reduces deep sleep</li>
+                                <li><strong>Caffeine:</strong> Delays onset</li>
+                                <li><strong>Alcohol:</strong> Suppresses REM</li>
+                                <li><strong>Exercise:</strong> Affects timing</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Medical Factors 🏥</h3>
+                            <ul>
+                                <li><strong>Sleep Apnea:</strong> Disrupts all stages</li>
+                                <li><strong>Pain:</strong> Reduces deep sleep</li>
+                                <li><strong>Medications:</strong> Alter REM</li>
+                                <li><strong>Anxiety:</strong> Delays onset</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Sleep Health & Benefits 🌿</h2>
+                <button id="cycle-info-2" class="cycle-button">Show Next Info Set 🔄</button>
+                
+                <div class="info-grid" id="info-grid-container-2">
+                    <!-- Set 1: Physical Health -->
+                    <div class="info-card-set active-set" data-set="1">
+                        <div class="info-card">
+                            <h3>Heart Health ❤️</h3>
+                            <ul>
+                                <li><strong>Blood Pressure:</strong> Regulates during sleep</li>
+                                <li><strong>Heart Rate:</strong> Natural reduction</li>
+                                <li><strong>Circulation:</strong> Improved flow</li>
+                                <li><strong>Recovery:</strong> Cardiac tissue repair</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Immune System 🛡️</h3>
+                            <ul>
+                                <li><strong>Antibodies:</strong> Enhanced production</li>
+                                <li><strong>Inflammation:</strong> Reduced levels</li>
+                                <li><strong>Recovery:</strong> Faster healing</li>
+                                <li><strong>Protection:</strong> Better defense</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weight Management ⚖️</h3>
+                            <ul>
+                                <li><strong>Metabolism:</strong> Better regulation</li>
+                                <li><strong>Hormones:</strong> Balanced levels</li>
+                                <li><strong>Appetite:</strong> Natural control</li>
+                                <li><strong>Energy:</strong> Improved usage</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 2: Mental Health -->
+                    <div class="info-card-set" data-set="2">
+                        <div class="info-card">
+                            <h3>Emotional Balance 🎭</h3>
+                            <ul>
+                                <li><strong>Mood:</strong> Better regulation</li>
+                                <li><strong>Stress:</strong> Reduced levels</li>
+                                <li><strong>Anxiety:</strong> Lower incidence</li>
+                                <li><strong>Stability:</strong> Improved control</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Mental Clarity 🧠</h3>
+                            <ul>
+                                <li><strong>Focus:</strong> Enhanced attention</li>
+                                <li><strong>Decision:</strong> Better judgment</li>
+                                <li><strong>Alertness:</strong> Improved awareness</li>
+                                <li><strong>Processing:</strong> Faster thinking</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Depression Prevention 🌅</h3>
+                            <ul>
+                                <li><strong>Serotonin:</strong> Natural balance</li>
+                                <li><strong>Outlook:</strong> More positive</li>
+                                <li><strong>Resilience:</strong> Better coping</li>
+                                <li><strong>Energy:</strong> Increased vitality</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Sleep Myths & Truths 🤔</h2>
+                <button id="cycle-info-3" class="cycle-button">Show Next Info Set 🔄</button>
+                
+                <div class="info-grid" id="info-grid-container-3">
+                    <!-- Set 1: Common Myths -->
+                    <div class="info-card-set active-set" data-set="1">
+                        <div class="info-card">
+                            <h3>Myth: Catching Up on Sleep 😴</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Weekend recovery works</li>
+                                <li><strong>Truth:</strong> Sleep debt accumulates</li>
+                                <li><strong>Impact:</strong> Affects performance</li>
+                                <li><strong>Solution:</strong> Consistent schedule</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Myth: Age & Sleep Need 👴</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Elderly need less sleep</li>
+                                <li><strong>Truth:</strong> Need remains constant</li>
+                                <li><strong>Change:</strong> Pattern may vary</li>
+                                <li><strong>Quality:</strong> Still important</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Myth: Screen Time 📱</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> No impact on sleep</li>
+                                <li><strong>Truth:</strong> Disrupts melatonin</li>
+                                <li><strong>Effect:</strong> Delays sleep onset</li>
+                                <li><strong>Advice:</strong> Limit before bed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 2: More Myths -->
+                    <div class="info-card-set" data-set="2">
+                        <div class="info-card">
+                            <h3>Myth: Alcohol & Sleep 🍷</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Helps sleep better</li>
+                                <li><strong>Truth:</strong> Disrupts REM sleep</li>
+                                <li><strong>Impact:</strong> Poor quality rest</li>
+                                <li><strong>Advice:</strong> Avoid before bed</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Myth: Exercise & Sleep 🏃‍♂️</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Avoid evening exercise</li>
+                                <li><strong>Truth:</strong> Depends on person</li>
+                                <li><strong>Impact:</strong> Can improve sleep</li>
+                                <li><strong>Timing:</strong> Find your window</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Myth: Napping 😴</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Always disrupts sleep</li>
+                                <li><strong>Truth:</strong> Short naps help</li>
+                                <li><strong>Duration:</strong> Keep under 30min</li>
+                                <li><strong>Timing:</strong> Before 3PM best</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Sleep Tips & Tricks 💡</h2>
+                <button id="cycle-info-4" class="cycle-button">Show Next Info Set 🔄</button>
+                
+                <div class="info-grid" id="info-grid-container-4">
+                    <!-- Set 1: Environment -->
+                    <div class="info-card-set active-set" data-set="1">
+                        <div class="info-card">
+                            <h3>Bedroom Setup 🛏️</h3>
+                            <ul>
+                                <li><strong>Temperature:</strong> 65-68°F ideal</li>
+                                <li><strong>Light:</strong> Dark environment</li>
+                                <li><strong>Noise:</strong> Quiet or white noise</li>
+                                <li><strong>Comfort:</strong> Quality bedding</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Evening Routine 🌙</h3>
+                            <ul>
+                                <li><strong>Timing:</strong> Consistent schedule</li>
+                                <li><strong>Activity:</strong> Calm, relaxing</li>
+                                <li><strong>Screens:</strong> Avoid 1hr before</li>
+                                <li><strong>Light:</strong> Dim environment</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Morning Routine 🌅</h3>
+                            <ul>
+                                <li><strong>Wake:</strong> Same time daily</li>
+                                <li><strong>Light:</strong> Get morning sun</li>
+                                <li><strong>Activity:</strong> Light exercise</li>
+                                <li><strong>Routine:</strong> Consistent habits</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 2: Lifestyle -->
+                    <div class="info-card-set" data-set="2">
+                        <div class="info-card">
+                            <h3>Diet Tips 🍎</h3>
+                            <ul>
+                                <li><strong>Timing:</strong> No late meals</li>
+                                <li><strong>Caffeine:</strong> Limit after 2PM</li>
+                                <li><strong>Hydration:</strong> Not before bed</li>
+                                <li><strong>Snacks:</strong> Light if needed</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Exercise Tips 🏃‍♀️</h3>
+                            <ul>
+                                <li><strong>Timing:</strong> Earlier is better</li>
+                                <li><strong>Type:</strong> Regular activity</li>
+                                <li><strong>Intensity:</strong> Moderate daily</li>
+                                <li><strong>Evening:</strong> Light stretching</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Stress Management 🧘‍♀️</h3>
+                            <ul>
+                                <li><strong>Meditation:</strong> Before bed</li>
+                                <li><strong>Breathing:</strong> Deep relaxation</li>
+                                <li><strong>Journal:</strong> Clear your mind</li>
+                                <li><strong>Routine:</strong> Wind down time</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Sleep Myths Debunked Section -->
+                <h2 class="section-title">Common Sleep Myths Debunked 🔍</h2>
+                <button id="cycle-info-5" class="cycle-button">Show Next Info Set 🔄</button>
+
+                <div class="info-grid" id="info-grid-container-5">
+                    <!-- Set 1: Sleep Duration Myths -->
+                    <div class="info-card-set active-set" data-set="1">
+                        <div class="info-card">
+                            <h3>Hours Needed 🕐</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> 4-5 hours is enough</li>
+                                <li><strong>Truth:</strong> Adults need 7-9 hours</li>
+                                <li><strong>Impact:</strong> Cognitive decline</li>
+                                <li><strong>Health:</strong> Increased risks</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weekend Recovery 📅</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Can catch up on weekends</li>
+                                <li><strong>Truth:</strong> Sleep debt persists</li>
+                                <li><strong>Effect:</strong> Disrupts rhythm</li>
+                                <li><strong>Solution:</strong> Regular schedule</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Age & Sleep 👴</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Elderly need less</li>
+                                <li><strong>Truth:</strong> Need stays constant</li>
+                                <li><strong>Change:</strong> Sleep patterns vary</li>
+                                <li><strong>Focus:</strong> Quality matters</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 2: Sleep Quality Myths -->
+                    <div class="info-card-set" data-set="2">
+                        <div class="info-card">
+                            <h3>TV Before Bed 📺</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Helps wind down</li>
+                                <li><strong>Truth:</strong> Disrupts sleep</li>
+                                <li><strong>Reason:</strong> Blue light exposure</li>
+                                <li><strong>Better:</strong> Relaxing activity</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Alcohol Effects 🍷</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Improves sleep</li>
+                                <li><strong>Truth:</strong> Reduces quality</li>
+                                <li><strong>Impact:</strong> Disrupts REM</li>
+                                <li><strong>Advice:</strong> Avoid before bed</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Exercise Timing 🏃</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Never at night</li>
+                                <li><strong>Truth:</strong> Varies by person</li>
+                                <li><strong>Key:</strong> Listen to body</li>
+                                <li><strong>Note:</strong> Light exercise OK</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 3: Sleep Behavior Myths -->
+                    <div class="info-card-set" data-set="3">
+                        <div class="info-card">
+                            <h3>Lying Awake 😳</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Stay in bed</li>
+                                <li><strong>Truth:</strong> Get up if awake</li>
+                                <li><strong>Time:</strong> 20-minute rule</li>
+                                <li><strong>Activity:</strong> Calm, no screens</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Napping Impact 😴</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> All naps bad</li>
+                                <li><strong>Truth:</strong> Short naps help</li>
+                                <li><strong>Length:</strong> 20-30 minutes</li>
+                                <li><strong>When:</strong> Before 3 PM</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Snoring Signs 😪</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Just annoying</li>
+                                <li><strong>Truth:</strong> May be serious</li>
+                                <li><strong>Check:</strong> Sleep apnea</li>
+                                <li><strong>Action:</strong> See doctor</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 4: Environmental Myths -->
+                    <div class="info-card-set" data-set="4">
+                        <div class="info-card">
+                            <h3>Room Temperature 🌡️</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Warmer is better</li>
+                                <li><strong>Truth:</strong> Cool is ideal</li>
+                                <li><strong>Best:</strong> 65-68°F (18-20°C)</li>
+                                <li><strong>Why:</strong> Matches body temp</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Sound Effects 🔊</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Silence only</li>
+                                <li><strong>Truth:</strong> White noise helps</li>
+                                <li><strong>Benefits:</strong> Masks disruption</li>
+                                <li><strong>Options:</strong> Fan, machine</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Light Impact 💡</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Any dark works</li>
+                                <li><strong>Truth:</strong> Complete dark best</li>
+                                <li><strong>Issue:</strong> Light disrupts</li>
+                                <li><strong>Fix:</strong> Blackout curtains</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Set 5: Health Impact Myths -->
+                    <div class="info-card-set" data-set="5">
+                        <div class="info-card">
+                            <h3>Memory Effects 🧠</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Brain rests fully</li>
+                                <li><strong>Truth:</strong> Active processing</li>
+                                <li><strong>Purpose:</strong> Consolidation</li>
+                                <li><strong>Benefit:</strong> Better recall</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Weight Impact ⚖️</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> No connection</li>
+                                <li><strong>Truth:</strong> Affects hormones</li>
+                                <li><strong>Change:</strong> Appetite up</li>
+                                <li><strong>Result:</strong> Weight gain risk</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>Immune System 🛡️</h3>
+                            <ul>
+                                <li><strong>Myth:</strong> Minor impact</li>
+                                <li><strong>Truth:</strong> Major influence</li>
+                                <li><strong>Effect:</strong> Builds defense</li>
+                                <li><strong>Need:</strong> Regular sleep</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Created for better sleep 💫 • Use this calculator as a guide for your sleep schedule ��</p>
+            <p style="margin-top: 1rem;">
+                <a href="about.html" style="color: var(--accent-color); text-decoration: none; margin-right: 1.5rem;">About Us</a>
+                <a href="contact.html" style="color: var(--accent-color); text-decoration: none; margin-right: 1.5rem;">Contact Us</a>
+                <a href="terms-privacy.html" style="color: var(--accent-color); text-decoration: none;">Terms & Privacy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
